@@ -26,7 +26,7 @@ SMTP_pass = IMAP_pass
 def feedByGmail():
     gmailWrapper = GmailWrapper(IMAP_host, SMTP_host, IMAP_user, IMAP_pass, SMTP_user, SMTP_pass)
     bigFeedIds = gmailWrapper.getIdsBySubject('feed gigi')
-    snackIds = gmailWrapper.getIdsBySubject('feed gigi snack')
+    snackIds = gmailWrapper.getIdsBySubject('snack time')
     if(len(bigFeedIds) > 0):
         try:
             servoTest.feed()
