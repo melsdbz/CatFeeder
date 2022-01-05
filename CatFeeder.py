@@ -25,19 +25,31 @@ SMTP_pass = IMAP_pass
 
 def feedByGmail():
     gmailWrapper = GmailWrapper(IMAP_host, SMTP_host, IMAP_user, IMAP_pass, SMTP_user, SMTP_pass)
-    ids = gmailWrapper.getIdsBySubject('feed Gigi')
-    if(len(ids) > 0):
+    bigFeedIds = gmailWrapper.getIdsBySubject('feed gigi')
+    snackIds = gmailWrapper.getIdsBySubject('feed gigi snack')
+    if(len(bigFeedIds) > 0):
         try:
             servoTest.feed()
-            email_addr = gmailWrapper.getSender(ids)
-            gmailWrapper.markAsRead(ids)
+            email_addr = gmailWrapper.getSender(bigFeedIds)
+            gmailWrapper.markAsRead(bigFeedIds)
             CatCam.takePic(filename)
             time.sleep(4)
             msg = gmailWrapper.createMsg(date_name, SMTP_user, email_addr, filename)
             gmailWrapper.sendMsg(msg)
         except:
-            print("Couldn't feed Gigi :/")
-
+            print("Couldn't feed Gigi his big meal :/")           
+    if(len(snackIds) > 0):
+        try:
+            servoTest.feedSnack()
+            email_addr = gmailWrapper.getSender(snackIds)
+            gmailWrapper.markAsRead(snackIds)
+            CatCam.takePic(filename)
+            time.sleep(4)
+            msg = gmailWrapper.createMsg(date_name, SMTP_user, email_addr, filename)
+            gmailWrapper.sendMsg(msg)
+        except:
+            print("Couldn't feed Gigi his snack :/")           
+            
 if __name__ == '__main__':
     feedByGmail()
 
