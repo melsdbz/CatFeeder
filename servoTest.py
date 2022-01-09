@@ -8,7 +8,7 @@ def feed():
     try:
         servo = GPIO.PWM(18,50)
         servo.start(2.5)
-        time.sleep(.75)
+        time.sleep(0.44)
     
     finally:
         servo.stop()
@@ -21,7 +21,7 @@ def feedSnack():
     try:
         servo = GPIO.PWM(18,50)
         servo.start(2.5)
-        time.sleep(.375)
+        time.sleep(.22)
     
     finally:
         servo.stop()
