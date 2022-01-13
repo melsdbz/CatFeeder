@@ -13,7 +13,7 @@ load_dotenv()
 #info for picture
 now = datetime.now()
 date_name = now.strftime("%m-%d-%Y--%H:%M:%S")
-filename = "/home/pi/Pictures/CatCam/"+date_name+".jpg"
+filename = "/home/melsdbz/Pictures/CatCam/"+date_name+".jpg"
 
 #info for gmail from environmental variables
 IMAP_host = os.getenv("IMAP_host")
