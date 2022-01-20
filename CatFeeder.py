@@ -41,7 +41,7 @@ def feedByGmail():
             time.sleep(4)
             msg = gmailWrapper.createMsg(date_name, SMTP_user, email_addr, filename)
             gmailWrapper.sendMsg(msg)
-            twitterBot.tweetplz(API_KEY, API_KEY_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, email_addr, date_name, filename)
+            twitterBot.tweetPlz(API_KEY, API_KEY_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, email_addr, date_name, filename)
         except:
             print("Couldn't feed Gigi his big meal :/")           
     if(len(snackIds) > 0):
