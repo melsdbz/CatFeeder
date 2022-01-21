@@ -12,7 +12,7 @@ load_dotenv()
 
 #info for picture
 now = datetime.now()
-date_name = now.strftime("%m-%d-%Y--%H:%M:%S")
+date_name = now.strftime("%m-%d-%Y--%I:%M%p")
 filename = "/home/melsdbz/Pictures/CatCam/"+date_name+".jpg"
 
 #info from environmental variable
