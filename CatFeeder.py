@@ -4,7 +4,7 @@ from GmailWrapper import GmailWrapper
 import time
 from datetime import datetime
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv, dotenv_values
 import twitterBot
 
 #dotenv for environmental variables
@@ -29,6 +29,7 @@ ACCESS_TOKEN_SECRET = os.getenv("ACCESS_TOKEN_SECRET")
 
 
 def feedByGmail():
+    en = dotenv_values()
     gmailWrapper = GmailWrapper(IMAP_host, SMTP_host, IMAP_user, IMAP_pass, SMTP_user, SMTP_pass)
     bigFeedIds = gmailWrapper.getIdsBySubject('feed gigi')
     snackIds = gmailWrapper.getIdsBySubject('snack time')
@@ -41,9 +42,14 @@ def feedByGmail():
             time.sleep(4)
             msg = gmailWrapper.createMsg(date_name, SMTP_user, email_addr, filename)
             gmailWrapper.sendMsg(msg)
-            twitterBot.tweetPlz(API_KEY, API_KEY_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, email_addr, date_name, filename)
+            if(email_addr in en.keys()):
+                newEmailAddr = os.getenv(email_addr)
+            else:
+                newEmailAddr = email_addr
+            twitterBot.tweetPlz(API_KEY, API_KEY_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, newEmailAddr, date_name, filename)
         except:
-            print("Couldn't feed Gigi his big meal :/")           
+            print("Couldn't feed Gigi his big meal :/")
+          
     if(len(snackIds) > 0):
         try:
             servoTest.feedSnack()
@@ -53,10 +59,14 @@ def feedByGmail():
             time.sleep(4)
             msg = gmailWrapper.createMsg(date_name, SMTP_user, email_addr, filename)
             gmailWrapper.sendMsg(msg)
-            twitterBot.tweetPlzSnack(API_KEY, API_KEY_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, email_addr, date_name, filename)
+            if(email_addr in en.keys()):
+                newEmailAddr = os.getenv(email_addr)
+            else:
+                newEmailAddr = email_addr
+            twitterBot.tweetPlzSnack(API_KEY, API_KEY_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, newEmailAddr, date_name, filename)
         except:
             print("Couldn't feed Gigi his snack :/")           
-            
+
 if __name__ == '__main__':
     feedByGmail()
 
